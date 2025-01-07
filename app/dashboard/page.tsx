@@ -26,7 +26,7 @@ export default function Page() {
         </WidgetCards>
 
         <WidgetCards
-          label="Total Feedback"
+          label="Response Rate"
           diffUnit="%"
           diff={-1.2}
           secondaryText="vs. Last Month"
@@ -35,7 +35,7 @@ export default function Page() {
         </WidgetCards>
 
         <WidgetCards
-          label="Total Feedback"
+          label="Avg. Processing Time"
           diffUnit="s"
           diff={0.3}
           secondaryText="vs. Last Month"
