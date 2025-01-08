@@ -26,20 +26,21 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
-import { loginSchema } from "@/lib/schema";
+import { registerSchema } from "@/lib/schema";
+import { OAuthOptions } from "./oauth-options";
 
-interface ILoginForm {
+interface ISignupForm {
   className?: string;
 }
 
-export const LoginForm: React.FC<ILoginForm> = ({ className }) => {
-  const form = useForm<z.infer<typeof loginSchema>>({
-    resolver: zodResolver(loginSchema),
+export const SignupForm: React.FC<ISignupForm> = ({ className }) => {
+  const form = useForm<z.infer<typeof registerSchema>>({
+    resolver: zodResolver(registerSchema),
   });
 
   const { handleSubmit } = form;
 
-  const onSubmit = (values: z.infer<typeof loginSchema>) => {
+  const onSubmit = (values: z.infer<typeof registerSchema>) => {
     console.log(`form data -> `, values);
   };
 
@@ -47,9 +48,9 @@ export const LoginForm: React.FC<ILoginForm> = ({ className }) => {
     <Form {...form}>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl">Log In</CardTitle>
+          <CardTitle className="text-2xl">Create New Account</CardTitle>
           <CardDescription>
-            Enter your email below to login to your account
+            Enter your details below to create new account
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -84,9 +85,6 @@ export const LoginForm: React.FC<ILoginForm> = ({ className }) => {
                   <FormItem>
                     <FormLabel className="flex justify-between items-center">
                       Password
-                      <Button variant={"link"} className="p-0 h-max">
-                        <Link href="#">Forgot your password?</Link>
-                      </Button>
                     </FormLabel>
 
                     <FormControl>
@@ -96,16 +94,32 @@ export const LoginForm: React.FC<ILoginForm> = ({ className }) => {
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Full Name</FormLabel>
+                    <FormControl>
+                      <Input id="password" type="password" {...field} />
+                    </FormControl>
+                    <FormDescription>
+                      This is your public display name.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <Button type="submit" className="w-full">
-                Login
+                Register
               </Button>
-              <OAuthGoogle>Login with Google</OAuthGoogle>
+              <OAuthGoogle>Register with Google</OAuthGoogle>
             </div>
             <div className="mt-4 text-center text-sm flex flex-col justify-between items-center">
-              Don&apos;t have an account?
+              Already have an account?
               <Button asChild variant={"link"}>
-                <Link href="/signup">Sign up</Link>
+                <Link href="/login">Log In</Link>
               </Button>
             </div>
           </form>
