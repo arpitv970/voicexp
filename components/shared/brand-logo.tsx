@@ -7,9 +7,12 @@ interface IBrandLogo {
 export const BrandLogo: React.FC<IBrandLogo> = ({ className }) => {
   return (
     <span
-      className={cn("text-3xl font-black tracking-tight font-sans", className)}
+      className={cn(
+        "text-2xl md:text-3xl font-black tracking-tight font-sans",
+        className,
+      )}
     >
-      Acme Inc.
+      Acme
     </span>
   );
 };

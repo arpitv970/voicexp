@@ -70,4 +70,8 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+
+  ::selection {
+    @apply bg-violet-800/80 text-primary-foreground;
+  }
 }
