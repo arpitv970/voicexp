@@ -1,5 +1,5 @@
-import { Dashboard } from "@/components/shared/dashboard";
 import React from "react";
+import { Dashboard } from "./_components/dashboard";
 
 const DashboardLayout = ({
   children,
