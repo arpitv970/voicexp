@@ -1,38 +1,28 @@
-"use client";
-
-import { handleGoogleAuth } from "@/actions/auth-actions";
-import { GoogleIcon } from "@/components/shared/icons/google-icon";
+import { getUser, handleSignIn, handleSignOut } from "@/actions/auth-actions";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+import { useState, useEffect } from "react";
+import type { User } from "@auth/core/types";
 
-interface IOAuthGoogle {
-  children?: React.ReactNode;
-  className?: string;
-}
+export const OAuthGoogle: React.FC = () => {
+  const [user, setUser] = useState<User | null>(null);
 
-export const OAuthGoogle: React.FC<IOAuthGoogle> = ({
-  children,
-  className,
-}) => {
-  const handleClick = async () => {
-    try {
-      const response = await handleGoogleAuth();
-      if (!response.ok) {
-        throw new Error(response.error);
-      }
-    } catch (error) {
-      console.error("Error during Google sign-up:", error);
-    }
-  };
+  useEffect(() => {
+    const fetchUser = async () => {
+      const currentUser: User | null = await getUser();
+      setUser(currentUser);
+    };
+    fetchUser();
+  }, []);
+
+  const isSignedIn = Boolean(user);
 
   return (
-    <Button
-      type="button"
-      variant="outline"
-      className={cn("w-full", className)}
-      onClick={handleClick}
-    >
-      {children || <GoogleIcon />}
-    </Button>
+    <form action={isSignedIn ? handleSignOut : handleSignIn}>
+      <Button type="submit" variant="outline" className="w-full mt-4">
+        {isSignedIn
+          ? `Sign Out (${user?.name ?? "User"})`
+          : "Sign In with Google"}
+      </Button>
+    </form>
   );
 };

@@ -27,7 +27,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import { registerSchema } from "@/lib/schema";
-import { OAuthOptions } from "./oauth-options";
 
 interface ISignupForm {
   className?: string;
@@ -114,15 +113,15 @@ export const SignupForm: React.FC<ISignupForm> = ({ className }) => {
               <Button type="submit" className="w-full">
                 Register
               </Button>
-              <OAuthGoogle>Register with Google</OAuthGoogle>
-            </div>
-            <div className="mt-4 text-center text-sm flex flex-col justify-between items-center">
-              Already have an account?
-              <Button asChild variant={"link"}>
-                <Link href="/login">Log In</Link>
-              </Button>
             </div>
           </form>
+          <OAuthGoogle />
+          <div className="mt-4 text-center text-sm flex flex-col justify-between items-center">
+            Already have an account?
+            <Button asChild variant={"link"}>
+              <Link href="/login">Log In</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </Form>

@@ -100,15 +100,15 @@ export const LoginForm: React.FC<ILoginForm> = ({ className }) => {
               <Button type="submit" className="w-full">
                 Login
               </Button>
-              <OAuthGoogle>Login with Google</OAuthGoogle>
-            </div>
-            <div className="mt-4 text-center text-sm flex flex-col justify-between items-center">
-              Don&apos;t have an account?
-              <Button asChild variant={"link"}>
-                <Link href="/signup">Sign up</Link>
-              </Button>
             </div>
           </form>
+          <OAuthGoogle />
+          <div className="mt-4 text-center text-sm flex flex-col justify-between items-center">
+            Don&apos;t have an account?
+            <Button asChild variant={"link"}>
+              <Link href="/signup">Sign up</Link>
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </Form>

@@ -1,23 +1,33 @@
-import { signIn as googleSignIn } from "next-auth/react";
+"use server";
 
-export const handleGoogleAuth = async () => {
-  try {
-    // Perform Google OAuth sign-in
-    const user = await googleSignIn("google", { redirect: false });
+import { auth, signIn, signOut } from "@/auth";
+import type { User } from "@auth/core/types";
 
-    console.log("New user created:", user);
-    return { ok: true, message: "User created successfully" };
-  } catch (error: unknown) {
-    if (error instanceof Error) {
-      console.error(
-        "Error during Google OAuth or database operations:",
-        error.message,
-      );
-      return { ok: false, error: error.message };
-    } else {
-      // If error is not an instance of Error (should not happen normally)
-      console.error("Unknown error:", error);
-      return { ok: false, error: "An unknown error occurred." };
-    }
+export const handleSignIn = async () => {
+  await signIn("google", {
+    redirect: true,
+    redirectTo: "/dashboard",
+  });
+};
+
+export const handleSignOut = async () => {
+  await signOut();
+};
+
+export const getUser = async (): Promise<User | null> => {
+  const session = await auth();
+
+  // Ensure session.user exists and validate the structure
+  if (
+    session?.user &&
+    typeof session.user.name === "string" &&
+    typeof session.user.email === "string"
+  ) {
+    return {
+      ...session.user,
+      image: session.user.image || undefined, // Optional field fallback
+    } as User; // Explicitly cast to User type
   }
+
+  return null; // Return null if no valid user is found
 };
