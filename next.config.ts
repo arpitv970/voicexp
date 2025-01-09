@@ -10,6 +10,10 @@ const nextConfig: NextConfig = {
         pathname: "/**", // Allow all paths
       },
     ],
+    domains: [
+      "lh3.googleusercontent.com",
+      "partnermarketinghub.withgoogle.com",
+    ],
   },
 };
 
