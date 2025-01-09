@@ -1,12 +1,22 @@
 "use client";
+
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { getUser } from "@/actions/auth-actions";
 import type { User } from "@auth/core/types";
+import { Toaster } from "@/components/ui/toaster";
 
 interface GlobalContextType {
+  // User management
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   isLoadingUser: boolean;
+
+  // Audio management
+  audioBlob: Blob | null;
+  transcription: string;
+  setAudioBlob: (blob: Blob | null) => void;
+  setTranscription: (text: string) => void;
+  clearAudio: () => void;
 }
 
 const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
@@ -14,8 +24,13 @@ const GlobalContext = createContext<GlobalContextType | undefined>(undefined);
 export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
+  // User state
   const [user, setUser] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
+
+  // Audio state
+  const [audioBlob, setAudioBlobState] = useState<Blob | null>(null);
+  const [transcription, setTranscriptionState] = useState<string>("");
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -27,9 +42,31 @@ export const GlobalProvider: React.FC<{ children: React.ReactNode }> = ({
     fetchUser();
   }, []);
 
+  // Audio-related handlers
+  const setAudioBlob = (blob: Blob | null) => setAudioBlobState(blob);
+  const setTranscription = (text: string) => setTranscriptionState(text);
+  const clearAudio = () => {
+    setAudioBlobState(null);
+    setTranscriptionState("");
+  };
+
   return (
-    <GlobalContext.Provider value={{ user, setUser, isLoadingUser }}>
+    <GlobalContext.Provider
+      value={{
+        // User
+        user,
+        setUser,
+        isLoadingUser,
+        // Audio
+        audioBlob,
+        transcription,
+        setAudioBlob,
+        setTranscription,
+        clearAudio,
+      }}
+    >
       {children}
+      <Toaster />
     </GlobalContext.Provider>
   );
 };

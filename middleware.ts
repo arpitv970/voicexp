@@ -4,7 +4,7 @@ import { getUser } from "./actions/auth-actions";
 // Define the different types of routes
 const globalRoutes = ["/"];
 const publicRoutes = ["/login", "/signup"];
-const privateRoutes = ["/dashboard", "/models", "/profile"];
+const privateRoutes = ["/dashboard", "/models", "/profile", "/feedback"];
 
 export default async function middleware(req: NextRequest) {
   const user = await getUser(); // Get user session

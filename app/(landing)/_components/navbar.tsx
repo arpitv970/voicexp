@@ -14,7 +14,9 @@ export const Navbar = () => {
 
         {/* Navigation */}
         <div className="flex gap-3">
-          <Button variant={"outline"}>Feedback</Button>
+          <Button asChild variant={"outline"}>
+            <Link href={"/feedback"}>Feedback</Link>
+          </Button>
           <Button asChild variant={"default"}>
             <Link href={"/dashboard"}>Get Analytics</Link>
           </Button>
