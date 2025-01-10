@@ -57,22 +57,22 @@ The primary purpose of this project is to create an intuitive and interactive da
     Using the Application
 	1.	Add Feedback Data:
 	    •	Add feedback data directly to the local storage in JSON format using the browser’s developer tools. Example:
-        ```
-[
-  {
-    "id": "1",
-    "data": {
-      "name": "John Doe",
-      "contactNo": "1234567890",
-      "email": "johndoe@example.com",
-      "referencedBy": "Jane Doe"
-    },
-    "audioBlob": "data:audio/wav;base64,...",
-    "createdAt": "2025-01-01T00:00:00Z"
-  }
-]
+		```json
+		[
+		  {
+		    "id": "1",
+		    "data": {
+		      "name": "John Doe",
+		      "contactNo": "1234567890",
+		      "email": "johndoe@example.com",
+		      "referencedBy": "Jane Doe"
+		    },
+		    "audioBlob": "data:audio/wav;base64,...",
+		    "createdAt": "2025-01-01T00:00:00Z"
+		  }
+		]
 
-        ```
+		```
 
 
         •	Key: feedbacks
@@ -89,10 +89,10 @@ The primary purpose of this project is to create an intuitive and interactive da
 
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page for open issues.
 	1.	Fork the repository.
-	2.	Create your feature branch: git checkout -b feature/YourFeatureName.
-	3.	Commit your changes: git commit -m 'Add some feature'.
-	4.	Push to the branch: git push origin feature/YourFeatureName.
-	5.	Open a pull request.
+	2.	Create your feature branch: `git checkout -b feature/YourFeatureName`.
+	3.	Commit your changes: `git commit -m 'Add some feature'`.
+	4.	Push to the branch: `git push origin feature/YourFeatureName`.
+	5.	Open a `pull request`.
 
 License
 
