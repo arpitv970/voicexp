@@ -13,27 +13,24 @@ const LandingHomePage = () => {
           <div className="relative mx-auto text-center flex flex-col items-center gap-10">
             <div>
               <H1>
-                <span>Insights that fuel curiosity,</span>
+                <span>Effortless feedback collection,</span>
                 <br />
                 <span className="relative bg-gradient-to-r from-violet-600 to-violet-900 text-transparent bg-clip-text">
-                  Discover more today.
+                  Enhance experiences today.
                 </span>
               </H1>
             </div>
             <p className="text-base/7 text-gray-600 max-w-prose text-center text-pretty">
-              From hands-on tutorials to deep dives into the latest tech trends,
-              our blog is a hub for{" "}
-              <span className="text-gray-700 font-semibold">
-                developers, engineers, and tech enthusiasts
-              </span>{" "}
-              alike. Follow expert insights, share your own journey, and connect
-              with community.
+              Simplify the way you gather, manage, and analyze feedback with our
+              intuitive dashboard. Gain insights, improve processes, and empower
+              your team to deliver better outcomes.
             </p>
             <ul className="space-y-2 text-base/7 text-gray-600 flex flex-col items-start">
               {[
-                "Blogs on the latest trends, tools, and best practices.",
-                "Explore, and learn from real people in tech.",
-                "Showcase all your published blogs and let other know your expertise.",
+                "Centralized dashboard to manage all feedback.",
+                "Support for audio feedback for better clarity.",
+                "Advanced sorting and filtering for seamless navigation.",
+                "Quick playback of audio responses directly from the platform.",
               ].map((item, idx) => (
                 <li key={idx} className="flex gap-1.5 items-center text-left">
                   <CheckIcon className="text-violet-500" />

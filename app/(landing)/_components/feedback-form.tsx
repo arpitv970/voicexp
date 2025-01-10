@@ -25,7 +25,7 @@ import {
 import { VoiceBox } from "./voice-box";
 import { useGlobalContext } from "@/context/global-provider";
 import { useToast } from "@/hooks/use-toast";
-import { convertBlobToBase64 } from "@/lib/utils";
+import { cn, convertBlobToBase64 } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z
@@ -40,7 +40,15 @@ const formSchema = z.object({
   transcription: z.string().nonempty("Audio transcription is required"),
 });
 
-export const FeedbackForm = () => {
+interface IFeedbackForm {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+export const FeedbackForm: React.FC<IFeedbackForm> = ({
+  className,
+  children,
+}) => {
   const { audioBlob, setAudioBlob, user } = useGlobalContext();
   const { toast } = useToast();
 
@@ -110,7 +118,10 @@ export const FeedbackForm = () => {
   };
 
   return (
-    <Card className="w-full min-h-max max-w-5xl border-none shadow-none">
+    <Card className={cn("w-full h-full border-none shadow-none", className)}>
+      <CardHeader>
+        <CardTitle>{children}</CardTitle>
+      </CardHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
