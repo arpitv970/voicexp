@@ -73,7 +73,7 @@ export const FeedbackForm = () => {
       return;
     }
 
-    const audioBase64 = await convertBlobToBase64(audioBlob);
+    const audioBase64 = audioBlob ? await convertBlobToBase64(audioBlob) : null;
 
     const existingFeedbacks = JSON.parse(
       localStorage.getItem("feedbacks") || "[]",
