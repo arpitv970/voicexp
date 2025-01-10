@@ -118,10 +118,12 @@ export const FeedbackForm: React.FC<IFeedbackForm> = ({
   };
 
   return (
-    <Card className={cn("w-full h-full border-none shadow-none", className)}>
-      <CardHeader>
-        <CardTitle>{children}</CardTitle>
-      </CardHeader>
+    <Card className={cn("w-full min-h-max border-none shadow-none", className)}>
+      {children ? (
+        <CardHeader>
+          <CardTitle>{children}</CardTitle>
+        </CardHeader>
+      ) : null}
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
