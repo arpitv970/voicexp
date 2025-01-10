@@ -27,6 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import { registerSchema } from "@/lib/schema";
+import { BrandLogo } from "@/components/shared/brand-logo";
 
 interface ISignupForm {
   className?: string;
@@ -46,8 +47,12 @@ export const SignupForm: React.FC<ISignupForm> = ({ className }) => {
   return (
     <Form {...form}>
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Create New Account</CardTitle>
+        <CardHeader className="text-center mx-auto">
+          <CardTitle className="text-2xl">
+            <Link href={"/"}>
+              <BrandLogo />
+            </Link>
+          </CardTitle>
           <CardDescription>
             Enter your details below to create new account
           </CardDescription>

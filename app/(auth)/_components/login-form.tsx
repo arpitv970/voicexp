@@ -27,6 +27,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import Link from "next/link";
 import { loginSchema } from "@/lib/schema";
+import { BrandLogo } from "@/components/shared/brand-logo";
 
 interface ILoginForm {
   className?: string;
@@ -46,8 +47,12 @@ export const LoginForm: React.FC<ILoginForm> = ({ className }) => {
   return (
     <Form {...form}>
       <Card>
-        <CardHeader>
-          <CardTitle className="text-2xl">Log In</CardTitle>
+        <CardHeader className="mx-auto text-center">
+          <CardTitle className="text-2xl">
+            <Link href={"/"}>
+              <BrandLogo />
+            </Link>
+          </CardTitle>
           <CardDescription>
             Enter your email below to login to your account
           </CardDescription>

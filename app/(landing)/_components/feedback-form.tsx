@@ -22,10 +22,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useState } from "react";
-import { toast } from "sonner";
 import { VoiceBox } from "./voice-box";
 import { useGlobalContext } from "@/context/global-provider";
+import { useToast } from "@/hooks/use-toast";
+import { convertBlobToBase64 } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z
@@ -41,13 +41,15 @@ const formSchema = z.object({
 });
 
 export const FeedbackForm = () => {
-  const { audioBlob, setAudioBlob } = useGlobalContext();
+  const { audioBlob, setAudioBlob, user } = useGlobalContext();
+  const { toast } = useToast();
 
   const {
     register,
     handleSubmit,
     setValue,
     reset,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -60,22 +62,51 @@ export const FeedbackForm = () => {
     },
   });
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     console.log("Submitted Data:", data);
-    toast.success("Feedback submitted successfully!");
+
+    if (!audioBlob) {
+      toast({
+        title: "Please record your audio feedback first!",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const audioBase64 = await convertBlobToBase64(audioBlob);
+
+    const existingFeedbacks = JSON.parse(
+      localStorage.getItem("feedbacks") || "[]",
+    );
+    const newFeedback = {
+      data,
+      audioBlob: audioBase64,
+      adminData: user,
+      createdAt: new Date().toISOString(),
+    };
+    existingFeedbacks.push(newFeedback);
+
+    localStorage.setItem("feedbacks", JSON.stringify(existingFeedbacks));
+    toast({
+      title: "Feedback submitted successfully!",
+    });
     reset();
   };
 
   const handleAudioRecorded = (blob: Blob, transcription: string) => {
     setAudioBlob(blob);
     setValue("transcription", transcription);
-    toast.success("Audio recorded and transcription updated!");
+    toast({
+      title: "Audio recorded and transcription updated!",
+    });
   };
 
   const handleClearRecording = () => {
     setAudioBlob(null);
     setValue("transcription", "");
-    toast.info("Recording cleared");
+    toast({
+      title: "Recording cleared",
+    });
   };
 
   return (

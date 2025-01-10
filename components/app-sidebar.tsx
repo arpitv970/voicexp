@@ -85,7 +85,7 @@ const data = {
     },
     {
       title: "Feedback",
-      url: "/feedback",
+      url: "/feedback/dashboard",
       icon: Send,
     },
   ],
